@@ -3,7 +3,7 @@ A full-stack trading journal for logging trades, tracking performance, and surfa
 
 ## Features
 -> Log trades (ticker, entry/exit price, size, date, direction, notes)
-#
+
 -> Full CRUD — create, view, edit, and delete trades
 #
 -> User authentication (each user's trades are private)
