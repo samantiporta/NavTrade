@@ -93,3 +93,46 @@ def delete_trade(
     db.delete(db_trade)
     db.commit()
     return {"message": f"Trade {trade_id} deleted"}
+
+def calculate_trade_pnl(trade):
+    if trade.exit_price is None:
+        return 0
+    if trade.direction == "Long":
+        return (trade.exit_price - trade.entry_price) * trade.size
+    else:
+        return (trade.entry_price - trade.exit_price) * trade.size
+
+@app.get("/stats", response_model=schemas.StatsResponse)
+def get_stats(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(auth.get_current_user)
+):
+    trades = db.query(models.Trade).filter(models.Trade.user_id == current_user.id).all()
+
+    if not trades:
+        return schemas.StatsResponse(
+            total_trades=0, wins=0, losses=0, win_rate=0.0,
+            total_pnl=0.0, avg_win=0.0, avg_loss=0.0,
+            best_trade=0.0, worst_trade=0.0
+        )
+
+    pnls = [calculate_trade_pnl(t) for t in trades]
+    wins_list = [p for p in pnls if p > 0]
+    losses_list = [p for p in pnls if p < 0]
+
+    total_trades = len(trades)
+    wins = len(wins_list)
+    losses = len(losses_list)
+    win_rate = (wins / total_trades) * 100 if total_trades > 0 else 0.0
+    total_pnl = sum(pnls)
+    avg_win = sum(wins_list) / len(wins_list) if wins_list else 0.0
+    avg_loss = sum(losses_list) / len(losses_list) if losses_list else 0.0
+    best_trade = max(pnls) if pnls else 0.0
+    worst_trade = min(pnls) if pnls else 0.0
+
+    return schemas.StatsResponse(
+        total_trades=total_trades, wins=wins, losses=losses,
+        win_rate=round(win_rate, 2), total_pnl=round(total_pnl, 2),
+        avg_win=round(avg_win, 2), avg_loss=round(avg_loss, 2),
+        best_trade=round(best_trade, 2), worst_trade=round(worst_trade, 2)
+    )

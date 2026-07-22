@@ -38,3 +38,14 @@ class UserResponse(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+class StatsResponse(BaseModel):
+    total_trades: int
+    wins: int
+    losses: int
+    win_rate: float
+    total_pnl: float
+    avg_win: float
+    avg_loss: float
+    best_trade: float
+    worst_trade: float
