@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { apiRequest } from "./api";
 import Login from "./Login";
+import Signup from "./Signup";
 import AddTrade from "./AddTrade";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [authView, setAuthView] = useState("login");
   const [trades, setTrades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,6 +33,12 @@ function App() {
     }
     fetchTrades();
   }, [token]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setTrades([]);
+  };
 
   const handleDelete = (id) => {
     apiRequest(`/trades/${id}`, { method: "DELETE" })
@@ -74,7 +82,27 @@ function App() {
   };
 
   if (!token) {
-    return <Login onLoginSuccess={() => setToken(localStorage.getItem("token"))} />;
+    if (authView === "signup") {
+      return (
+        <Signup
+          onSignupSuccess={() => setToken(localStorage.getItem("token"))}
+          switchToLogin={() => setAuthView("login")}
+        />
+      );
+    }
+    return (
+      <div>
+        <Login onLoginSuccess={() => setToken(localStorage.getItem("token"))} />
+        <div style={{ padding: "0 2rem" }}>
+          <p>
+            Don't have an account?{" "}
+            <button onClick={() => setAuthView("signup")} style={{ background: "none", border: "none", color: "blue", cursor: "pointer" }}>
+              Sign Up
+            </button>
+          </p>
+        </div>
+      </div>
+    );
   }
 
   if (loading) return <p>Loading trades...</p>;
@@ -82,7 +110,10 @@ function App() {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>NavTrade</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1>NavTrade</h1>
+        <button onClick={handleLogout}>Log Out</button>
+      </div>
       <AddTrade onTradeAdded={fetchTrades} />
       <h2>Your Trades</h2>
       {trades.length === 0 ? (
