@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Compass } from "lucide-react";
 import { apiRequest } from "./api";
 
 function Signup({ onSignupSuccess, switchToLogin }) {
@@ -34,30 +35,57 @@ function Signup({ onSignupSuccess, switchToLogin }) {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>NavTrade Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <br />
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+    <div className="min-h-screen w-full bg-[#05070B] text-[#DDE1E8] font-sans flex items-center justify-center px-6">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+        .font-sans { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+      `}</style>
+      <div className="w-full max-w-sm">
+        <div className="flex items-center gap-2 mb-8 justify-center">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#F0B429] to-[#C98A12] flex items-center justify-center">
+            <Compass size={18} className="text-[#05070B]" strokeWidth={2.5} />
+          </div>
+          <span className="font-display font-semibold text-xl">NavTrade</span>
         </div>
-        <div style={{ marginTop: "1rem" }}>
-          <label>Password</label>
-          <br />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <div className="rounded-xl border border-[#131720] bg-[#080B10] p-6">
+          <h1 className="font-display text-lg font-semibold mb-5">Sign Up</h1>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="text-xs text-[#7A8296] mb-1 block">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-[#0B0E14] border border-[#232A38] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#F0B429]"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-[#7A8296] mb-1 block">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-[#0B0E14] border border-[#232A38] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#F0B429]"
+              />
+            </div>
+            {error && <p className="text-[#FF6B6B] text-sm">{error}</p>}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-[#F0B429] hover:bg-[#E0A61E] text-[#05070B] font-medium text-sm py-2.5 rounded-lg transition-colors disabled:opacity-60"
+            >
+              {loading ? "Creating account..." : "Sign Up"}
+            </button>
+          </form>
+          <p className="text-center text-sm text-[#7A8296] mt-4">
+            Already have an account?{" "}
+            <button onClick={switchToLogin} className="text-[#F0B429] hover:underline">
+              Log In
+            </button>
+          </p>
         </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit" style={{ marginTop: "1rem" }} disabled={loading}>
-          {loading ? "Creating account..." : "Sign Up"}
-        </button>
-      </form>
-      <p style={{ marginTop: "1rem" }}>
-        Already have an account?{" "}
-        <button onClick={switchToLogin} style={{ background: "none", border: "none", color: "blue", cursor: "pointer" }}>
-          Log In
-        </button>
-      </p>
+      </div>
     </div>
   );
 }
