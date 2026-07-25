@@ -86,9 +86,9 @@ function CalendarView({ trades }) {
                 "bg-[#0B0E14] text-[#4A5164]"
               }`}
             >
-              <span className="font-medium">{day}</span>
+              <span className="font-medium text-lg">{day}</span>
               {pnl !== undefined && (
-                <span className="font-mono text-[9px] leading-none mt-0.5">
+                <span className="font-mono text-xs leading-none mt-1">
                   {pnl > 0 ? "+" : ""}{Math.round(pnl)}
                 </span>
               )}
