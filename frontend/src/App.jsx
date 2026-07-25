@@ -4,7 +4,8 @@ import Login from "./Login";
 import Signup from "./Signup";
 import AddTrade from "./AddTrade";
 import Dashboard from "./Dashboard";
-import { Compass, Plus, LogOut, PieChart, Table2, MessageSquareText, ChevronDown } from "lucide-react";
+import CalendarView from "./CalendarView";
+import { Compass, Plus, LogOut, PieChart, Table2, CalendarDays, MessageSquareText, ChevronDown } from "lucide-react";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -236,6 +237,13 @@ function App() {
             <Table2 size={16} />
             Trades
           </button>
+          <button
+            onClick={() => setActiveView("calendar")}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "calendar" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+          >
+            <CalendarDays size={16} />
+            Calendar
+          </button>
         </nav>
 
         <div className="mt-auto flex flex-col gap-3 pt-4">
@@ -262,6 +270,11 @@ function App() {
           <p className="text-[#FF6B6B]">Error: {error}</p>
         ) : activeView === "overview" ? (
           <Dashboard trades={trades} />
+        ) : activeView === "calendar" ? (
+          <>
+            <h2 className="font-display text-lg font-semibold mb-4">Calendar</h2>
+            <CalendarView trades={trades} />
+          </>
         ) : (
           <TradesTable />
         )}
