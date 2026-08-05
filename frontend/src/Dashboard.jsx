@@ -193,6 +193,9 @@ function Dashboard({ trades }) {
               { label: "Avg Win", value: `$${stats.avg_win}` },
               { label: "Avg Loss", value: `$${stats.avg_loss}` },
               { label: "Wins / Losses", value: `${stats.wins} / ${stats.losses}` },
+              { label: "Long / Short", value: `${trades.filter(t => t.direction === "Long").length} / ${trades.filter(t => t.direction === "Short").length}` },
+              { label: "Open Positions", value: trades.filter(t => t.exit_price === null || t.exit_price === undefined).length },
+              { label: "Total Volume", value: `$${Math.round(trades.reduce((sum, t) => sum + (t.entry_price * t.size), 0)).toLocaleString()}` },
             ].map((s) => (
               <div key={s.label} className="flex items-center justify-between text-sm">
                 <span className="text-[#7A8296]">{s.label}</span>
