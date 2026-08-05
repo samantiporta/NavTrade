@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AreaChart, Area, BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell, LabelList } from "recharts";
-import { TrendingUp, Target, Layers, Trophy, TrendingDown, Wallet, Flame, Activity } from "lucide-react";
+import { TrendingUp, Target, Layers, Trophy, TrendingDown, Wallet, Flame, Activity, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { apiRequest } from "./api";
 
 const STARTING_BALANCE = 10000;
@@ -116,6 +116,10 @@ function Dashboard({ trades }) {
     ? Math.abs((stats.avg_win * stats.wins) / (stats.avg_loss * stats.losses || 1)).toFixed(2)
     : "—";
 
+  const recentTrades = [...trades]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5);
+
   return (
     <div className="w-full">
       <h2 className="font-display text-lg font-semibold mb-4">Dashboard</h2>
@@ -181,7 +185,7 @@ function Dashboard({ trades }) {
       </div>
 
       {/* Statistics + Symbol + Streak */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
           <div className="flex items-center gap-2 mb-3">
             <Activity size={14} className="text-[#F0B429]" />
@@ -193,9 +197,9 @@ function Dashboard({ trades }) {
               { label: "Avg Win", value: `$${stats.avg_win}` },
               { label: "Avg Loss", value: `$${stats.avg_loss}` },
               { label: "Wins / Losses", value: `${stats.wins} / ${stats.losses}` },
-              { label: "Long / Short", value: `${trades.filter(t => t.direction === "Long").length} / ${trades.filter(t => t.direction === "Short").length}` },
-              { label: "Open Positions", value: trades.filter(t => t.exit_price === null || t.exit_price === undefined).length },
-              { label: "Total Volume", value: `$${Math.round(trades.reduce((sum, t) => sum + (t.entry_price * t.size), 0)).toLocaleString()}` },
+              { label: "Long / Short", value: `${trades.filter((t) => t.direction === "Long").length} / ${trades.filter((t) => t.direction === "Short").length}` },
+              { label: "Open Positions", value: trades.filter((t) => t.exit_price === null || t.exit_price === undefined).length },
+              { label: "Total Volume", value: `$${Math.round(trades.reduce((sum, t) => sum + t.entry_price * t.size, 0)).toLocaleString()}` },
             ].map((s) => (
               <div key={s.label} className="flex items-center justify-between text-sm">
                 <span className="text-[#7A8296]">{s.label}</span>
@@ -242,6 +246,51 @@ function Dashboard({ trades }) {
             <span className="px-2 py-0.5 rounded-md bg-[#211013] text-[#FF6B6B]">Worst streak {streak.bestLoss}</span>
           </div>
         </div>
+      </div>
+
+      {/* Recent Trades */}
+      <div className="rounded-xl border border-[#131720] bg-[#080B10] overflow-hidden">
+        <div className="px-4 pt-3.5 pb-3">
+          <span className="text-sm font-medium text-[#DDE1E8]">Recent Trades</span>
+        </div>
+        {recentTrades.length === 0 ? (
+          <p className="text-xs text-[#5C6478] px-4 pb-4">No trades yet.</p>
+        ) : (
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-[10px] uppercase tracking-wider text-[#4A5164] border-y border-[#131720]">
+                <th className="px-4 py-2 font-medium">Symbol</th>
+                <th className="px-4 py-2 font-medium">Side</th>
+                <th className="px-4 py-2 font-medium">Entry</th>
+                <th className="px-4 py-2 font-medium">Exit</th>
+                <th className="px-4 py-2 font-medium">Date</th>
+                <th className="px-4 py-2 font-medium text-right">PnL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recentTrades.map((t) => {
+                const pnl = calculateTradePnl(t);
+                return (
+                  <tr key={t.id} className="border-b border-[#0E1218] last:border-0 hover:bg-[#0C0F16] transition-colors">
+                    <td className="px-4 py-2.5 font-mono font-medium">{t.ticker}</td>
+                    <td className="px-4 py-2.5">
+                      <span className={`inline-flex items-center gap-1 text-[11px] px-1.5 py-0.5 rounded ${t.direction === "Long" ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
+                        {t.direction === "Long" ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
+                        {t.direction}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2.5 font-mono text-[#8B93A6]">${t.entry_price}</td>
+                    <td className="px-4 py-2.5 font-mono text-[#8B93A6]">{t.exit_price ? `$${t.exit_price}` : "Open"}</td>
+                    <td className="px-4 py-2.5 text-[#7A8296]">{t.date}</td>
+                    <td className={`px-4 py-2.5 text-right font-mono font-medium ${pnl > 0 ? "text-[#3DD68C]" : pnl < 0 ? "text-[#FF6B6B]" : "text-[#5C6478]"}`}>
+                      {pnl !== 0 ? `${pnl >= 0 ? "+" : ""}${Math.round(pnl * 100) / 100}` : "—"}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
