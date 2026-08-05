@@ -11,6 +11,12 @@ function Signup({ onSignupSuccess, switchToLogin }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError(null);
+
+    if (!email.includes("@")) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     setLoading(true);
 
     apiRequest("/auth/signup", {
