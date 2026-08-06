@@ -58,7 +58,7 @@ function Profile() {
     : null;
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="w-full">
       <h2 className="font-display text-2xl font-semibold mb-6">Profile</h2>
 
       <div className="rounded-xl border border-[#131720] bg-[#080B10] p-8 mb-6">
