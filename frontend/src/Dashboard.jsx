@@ -3,8 +3,6 @@ import { AreaChart, Area, BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tool
 import { TrendingUp, Target, Layers, Trophy, TrendingDown, Wallet, Flame, Activity, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { apiRequest } from "./api";
 
-const STARTING_BALANCE = 10000;
-
 function calculateTradePnl(trade) {
   if (trade.exit_price === null || trade.exit_price === undefined) return 0;
   if (trade.direction === "Long") {
@@ -13,9 +11,9 @@ function calculateTradePnl(trade) {
   return (trade.entry_price - trade.exit_price) * trade.size;
 }
 
-function buildEquityCurve(trades) {
+function buildEquityCurve(trades, startingBalance) {
   const sorted = [...trades].sort((a, b) => new Date(a.date) - new Date(b.date));
-  let running = STARTING_BALANCE;
+  let running = startingBalance;
   return sorted.map((trade) => {
     running += calculateTradePnl(trade);
     return { date: trade.date, equity: Math.round(running * 100) / 100 };
@@ -35,8 +33,8 @@ function buildSymbolBreakdown(trades) {
     .sort((a, b) => b.pnl - a.pnl);
 }
 
-function computeDrawdown(equityCurve) {
-  let peak = STARTING_BALANCE;
+function computeDrawdown(equityCurve, startingBalance) {
+  let peak = startingBalance;
   let maxDD = 0;
   equityCurve.forEach((p) => {
     if (p.equity > peak) peak = p.equity;
@@ -95,6 +93,7 @@ function StatCard({ icon: Icon, label, value, positive }) {
 
 function Dashboard({ trades }) {
   const [stats, setStats] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -103,14 +102,21 @@ function Dashboard({ trades }) {
       .catch((err) => setError(err.message));
   }, [trades]);
 
-  if (error) return <p className="text-[#FF6B6B]">Error loading stats: {error}</p>;
-  if (!stats) return <p className="text-[#5C6478]">Loading stats...</p>;
+  useEffect(() => {
+    apiRequest("/users/me")
+      .then(setProfile)
+      .catch((err) => setError(err.message));
+  }, []);
 
-  const equityData = buildEquityCurve(trades);
+  if (error) return <p className="text-[#FF6B6B]">Error loading dashboard: {error}</p>;
+  if (!stats || !profile) return <p className="text-[#5C6478]">Loading dashboard...</p>;
+
+  const startingBalance = profile.starting_balance;
+  const equityData = buildEquityCurve(trades, startingBalance);
   const symbolData = buildSymbolBreakdown(trades);
-  const { maxDD, peak } = computeDrawdown(equityData);
+  const { maxDD, peak } = computeDrawdown(equityData, startingBalance);
   const streak = computeStreak(trades);
-  const currentBalance = Math.round((STARTING_BALANCE + stats.total_pnl) * 100) / 100;
+  const currentBalance = Math.round((startingBalance + stats.total_pnl) * 100) / 100;
   const maxAbsSymbol = Math.max(1, ...symbolData.map((d) => Math.abs(d.pnl)));
   const profitFactor = stats.avg_loss !== 0
     ? Math.abs((stats.avg_win * stats.wins) / (stats.avg_loss * stats.losses || 1)).toFixed(2)
@@ -124,7 +130,6 @@ function Dashboard({ trades }) {
     <div className="w-full">
       <h2 className="font-display text-lg font-semibold mb-4">Dashboard</h2>
 
-      {/* Top stat row */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
         <StatCard icon={TrendingUp} label="Total P&L" value={`$${stats.total_pnl}`} positive={stats.total_pnl >= 0} />
         <StatCard icon={Target} label="Win Rate" value={`${stats.win_rate}%`} positive={stats.win_rate >= 50} />
@@ -133,7 +138,6 @@ function Dashboard({ trades }) {
         <StatCard icon={TrendingDown} label="Worst Trade" value={`$${stats.worst_trade}`} positive={stats.worst_trade >= 0} />
       </div>
 
-      {/* Equity chart + Risk & Capital */}
       <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-3 mb-4">
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-5">
           <div className="flex items-baseline justify-between mb-2">
@@ -142,7 +146,7 @@ function Dashboard({ trades }) {
               <div className="font-mono text-2xl font-semibold">${currentBalance.toLocaleString()}</div>
             </div>
             <span className={`text-xs font-mono px-2 py-0.5 rounded ${stats.total_pnl >= 0 ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
-              {stats.total_pnl >= 0 ? "+" : ""}{((stats.total_pnl / STARTING_BALANCE) * 100).toFixed(2)}%
+              {stats.total_pnl >= 0 ? "+" : ""}{startingBalance > 0 ? ((stats.total_pnl / startingBalance) * 100).toFixed(2) : "0.00"}%
             </span>
           </div>
           <div className="h-52">
@@ -170,7 +174,7 @@ function Dashboard({ trades }) {
           </div>
           <div className="space-y-3">
             {[
-              { label: "Starting Balance", value: `$${STARTING_BALANCE.toLocaleString()}` },
+              { label: "Starting Balance", value: `$${startingBalance.toLocaleString()}` },
               { label: "Current Balance", value: `$${currentBalance.toLocaleString()}` },
               { label: "Highest Balance", value: `$${peak.toLocaleString()}` },
               { label: "Max Drawdown", value: `$${maxDD.toLocaleString()}`, negative: maxDD > 0 },
@@ -184,7 +188,6 @@ function Dashboard({ trades }) {
         </div>
       </div>
 
-      {/* Statistics + Symbol + Streak */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
           <div className="flex items-center gap-2 mb-3">
@@ -248,7 +251,6 @@ function Dashboard({ trades }) {
         </div>
       </div>
 
-      {/* Recent Trades */}
       <div className="rounded-xl border border-[#131720] bg-[#080B10] overflow-hidden">
         <div className="px-4 pt-3.5 pb-3">
           <span className="text-sm font-medium text-[#DDE1E8]">Recent Trades</span>

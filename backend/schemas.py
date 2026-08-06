@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 
 class TradeCreate(BaseModel):
@@ -49,3 +49,19 @@ class StatsResponse(BaseModel):
     avg_loss: float
     best_trade: float
     worst_trade: float
+
+class UserProfileResponse(BaseModel):
+    id: int
+    email: str
+    starting_balance: float
+    display_name: Optional[str]
+    bio: Optional[str]
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+class UserProfileUpdate(BaseModel):
+    starting_balance: Optional[float] = None
+    display_name: Optional[str] = None
+    bio: Optional[str] = None

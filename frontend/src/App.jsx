@@ -5,7 +5,8 @@ import Signup from "./Signup";
 import AddTrade from "./AddTrade";
 import Dashboard from "./Dashboard";
 import CalendarView from "./CalendarView";
-import { Compass, Plus, LogOut, PieChart, Table2, CalendarDays, MessageSquareText, ChevronDown } from "lucide-react";
+import Profile from "./Profile";
+import { Compass, Plus, LogOut, PieChart, Table2, CalendarDays, MessageSquareText, ChevronDown, User } from "lucide-react";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -244,6 +245,13 @@ function App() {
             <CalendarDays size={16} />
             Calendar
           </button>
+          <button
+            onClick={() => setActiveView("profile")}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "profile" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+          >
+            <User size={16} />
+            Profile
+          </button>
         </nav>
 
         <div className="mt-auto flex flex-col gap-3 pt-4">
@@ -275,6 +283,8 @@ function App() {
             <h2 className="font-display text-lg font-semibold mb-4">Calendar</h2>
             <CalendarView trades={trades} />
           </>
+        ) : activeView === "profile" ? (
+          <Profile />
         ) : (
           <TradesTable />
         )}

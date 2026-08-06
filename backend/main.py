@@ -145,3 +145,23 @@ def get_stats(
         avg_win=round(avg_win, 2), avg_loss=round(avg_loss, 2),
         best_trade=round(best_trade, 2), worst_trade=round(worst_trade, 2)
     )
+
+@app.get("/users/me", response_model=schemas.UserProfileResponse)
+def get_profile(current_user: models.User = Depends(auth.get_current_user)):
+    return current_user
+
+@app.put("/users/me", response_model=schemas.UserProfileResponse)
+def update_profile(
+    profile: schemas.UserProfileUpdate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(auth.get_current_user)
+):
+    if profile.starting_balance is not None:
+        current_user.starting_balance = profile.starting_balance
+    if profile.display_name is not None:
+        current_user.display_name = profile.display_name
+    if profile.bio is not None:
+        current_user.bio = profile.bio
+    db.commit()
+    db.refresh(current_user)
+    return current_user

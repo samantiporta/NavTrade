@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Date, DateTime, ForeignKey, func
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -7,6 +7,10 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
+    starting_balance = Column(Float, nullable=False, default=10000.0)
+    display_name = Column(String, nullable=True)
+    bio = Column(String, nullable=True)
+    created_at = Column(DateTime, nullable=False, server_default=func.now())
 
     trades = relationship("Trade", back_populates="owner")
 
