@@ -120,9 +120,9 @@ function App() {
         <p className="text-[#5C6478]">No trades yet.</p>
       ) : (
         <div className="rounded-xl border border-[#131720] bg-[#080B10] overflow-hidden">
-          <table className="w-full text-sm">
+          <table className="w-full text-base">
             <thead>
-              <tr className="text-left text-[10px] uppercase tracking-wider text-[#4A5164] border-b border-[#131720]">
+              <tr className="text-left text-sm uppercase tracking-wider text-[#4A5164] border-b border-[#131720]">
                 <th className="px-4 py-2.5 font-medium">Ticker</th>
                 <th className="px-4 py-2.5 font-medium">Direction</th>
                 <th className="px-4 py-2.5 font-medium">Entry</th>
