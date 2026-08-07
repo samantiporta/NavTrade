@@ -103,17 +103,10 @@ function App() {
       );
     }
     return (
-      <div>
-        <Login onLoginSuccess={() => setToken(localStorage.getItem("token"))} />
-        <div className="px-8 pb-8 text-center">
-          <p className="text-[#7A8296]">
-            Don't have an account?{" "}
-            <button onClick={() => setAuthView("signup")} className="text-[#F0B429] hover:underline">
-              Sign Up
-            </button>
-          </p>
-        </div>
-      </div>
+      <Login
+        onLoginSuccess={() => setToken(localStorage.getItem("token"))}
+        switchToSignup={() => setAuthView("signup")}
+      />
     );
   }
 

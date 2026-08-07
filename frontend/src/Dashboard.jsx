@@ -128,7 +128,7 @@ function Dashboard({ trades }) {
 
   return (
     <div className="w-full">
-      <h2 className="font-display text-lg font-semibold mb-4">Dashboard</h2>
+      <h2 className="font-display text-2xl font-semibold mb-6">Dashboard</h2>
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
         <StatCard icon={TrendingUp} label="Total P&L" value={`$${stats.total_pnl}`} positive={stats.total_pnl >= 0} />

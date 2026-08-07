@@ -45,7 +45,7 @@ function AddTrade({ onTradeAdded }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3 className="font-display text-sm font-semibold mb-3 text-[#B4BACA]">Add Trade</h3>
+      <h3 className="font-display text-2xl font-semibold mb-6 text-[#B4BACA]">Add Trade</h3>
       <div className="flex flex-wrap gap-2 mb-3">
         <input placeholder="Ticker" value={ticker} onChange={(e) => setTicker(e.target.value)} className={`${inputClass} w-24`} />
         <input placeholder="Entry Price" type="number" step="0.01" value={entryPrice} onChange={(e) => setEntryPrice(e.target.value)} className={`${inputClass} w-28`} />
