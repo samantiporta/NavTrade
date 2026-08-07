@@ -47,10 +47,10 @@ function AddTrade({ onTradeAdded }) {
     <form onSubmit={handleSubmit}>
       <h3 className="font-display text-2xl font-semibold mb-6 text-[#B4BACA]">Add Trade</h3>
       <div className="flex flex-wrap gap-2 mb-3">
-        <input placeholder="Ticker" value={ticker} onChange={(e) => setTicker(e.target.value)} className={`${inputClass} w-24`} />
-        <input placeholder="Entry Price" type="number" step="0.01" value={entryPrice} onChange={(e) => setEntryPrice(e.target.value)} className={`${inputClass} w-28`} />
-        <input placeholder="Exit Price" type="number" step="0.01" value={exitPrice} onChange={(e) => setExitPrice(e.target.value)} className={`${inputClass} w-28`} />
-        <input placeholder="Size" type="number" step="0.01" value={size} onChange={(e) => setSize(e.target.value)} className={`${inputClass} w-20`} />
+        <input placeholder="Ticker" value={ticker} onChange={(e) => setTicker(e.target.value)} className={`${inputClass} w-28`} />
+        <input placeholder="Entry Price" type="number" step="0.01" value={entryPrice} onChange={(e) => setEntryPrice(e.target.value)} className={`${inputClass} w-36`} />
+        <input placeholder="Exit Price" type="number" step="0.01" value={exitPrice} onChange={(e) => setExitPrice(e.target.value)} className={`${inputClass} w-36`} />
+        <input placeholder="Size" type="number" step="0.01" value={size} onChange={(e) => setSize(e.target.value)} className={`${inputClass} w-24`} />
         <input placeholder="Date" type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputClass} />
         <select value={direction} onChange={(e) => setDirection(e.target.value)} className={inputClass}>
           <option value="Long">Long</option>

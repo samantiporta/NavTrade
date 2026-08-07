@@ -214,33 +214,33 @@ function App() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#F0B429] to-[#C98A12] flex items-center justify-center">
             <Compass size={16} className="text-[#05070B]" strokeWidth={2.5} />
           </div>
-          <span className="font-display font-semibold text-[15px] tracking-tight">NavTrade</span>
+          <span className="font-display font-semibold text-lg tracking-tight">NavTrade</span>
         </div>
         <nav className="flex flex-col gap-1">
           <button
             onClick={() => setActiveView("overview")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "overview" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-base text-left transition-colors ${activeView === "overview" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
           >
             <PieChart size={16} />
             Overview
           </button>
           <button
             onClick={() => setActiveView("trades")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "trades" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-base text-left transition-colors ${activeView === "trades" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
           >
             <Table2 size={16} />
             Trades
           </button>
           <button
             onClick={() => setActiveView("calendar")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "calendar" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-base text-left transition-colors ${activeView === "calendar" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
           >
             <CalendarDays size={16} />
             Calendar
           </button>
           <button
             onClick={() => setActiveView("profile")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "profile" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-base text-left transition-colors ${activeView === "profile" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
           >
             <User size={16} />
             Profile
@@ -250,13 +250,13 @@ function App() {
         <div className="mt-auto flex flex-col gap-3 pt-4">
           <button
             onClick={() => setActiveView("trades")}
-            className="flex items-center gap-2 justify-center bg-[#F0B429] hover:bg-[#E0A61E] text-[#05070B] font-medium text-sm px-3 py-2 rounded-lg transition-colors"
+            className="flex items-center gap-2 justify-center bg-[#F0B429] hover:bg-[#E0A61E] text-[#05070B] font-medium text-base px-3 py-2 rounded-lg transition-colors"
           >
             <Plus size={15} strokeWidth={2.5} />
             Add Trade
           </button>
           <div className="pt-3 mt-1 border-t border-[#131720]">
-            <button onClick={handleLogout} className="flex items-center gap-2 justify-center w-full text-sm text-[#7A8296] hover:text-[#DDE1E8] px-3 py-2 rounded-lg transition-colors">
+            <button onClick={handleLogout} className="flex items-center gap-2 justify-center w-full text-base text-[#7A8296] hover:text-[#DDE1E8] px-3 py-2 rounded-lg transition-colors">
               <LogOut size={14} />
               Log Out
             </button>

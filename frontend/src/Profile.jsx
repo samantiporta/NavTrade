@@ -73,7 +73,7 @@ function Profile() {
             {profile?.display_name && (
               <div className="text-base text-[#5C6478]">{profile.email}</div>
             )}
-            <div className="text-sm text-[#5C6478] mt-2">
+            <div className="text-base text-[#5C6478] mt-2">
               Account ID: {profile?.id}
               {joinedDate && <> · Joined {joinedDate}</>}
             </div>
@@ -88,19 +88,19 @@ function Profile() {
       {stats && (
         <div className="grid grid-cols-3 gap-6 mb-6">
           <div className="rounded-xl border border-[#131720] bg-[#080B10] p-6">
-            <div className="text-sm text-[#5C6478] mb-2">Total Trades</div>
+            <div className="text-base text-[#5C6478] mb-2">Total Trades</div>
             <div className="text-3xl font-semibold text-[#DDE1E8]">
               {stats.total_trades}
             </div>
           </div>
           <div className="rounded-xl border border-[#131720] bg-[#080B10] p-6">
-            <div className="text-sm text-[#5C6478] mb-2">Win Rate</div>
+            <div className="text-base text-[#5C6478] mb-2">Win Rate</div>
             <div className="text-3xl font-semibold text-[#DDE1E8]">
               {stats.win_rate.toFixed(1)}%
             </div>
           </div>
           <div className="rounded-xl border border-[#131720] bg-[#080B10] p-6">
-            <div className="text-sm text-[#5C6478] mb-2">Total P&L</div>
+            <div className="text-base text-[#5C6478] mb-2">Total P&L</div>
             <div
               className={`text-3xl font-semibold ${
                 stats.total_pnl >= 0 ? "text-[#3DD68C]" : "text-[#FF6B6B]"
@@ -116,7 +116,7 @@ function Profile() {
       <div className="rounded-xl border border-[#131720] bg-[#080B10] p-8">
         <form onSubmit={handleSave} className="space-y-6">
           <div>
-            <label className="text-sm text-[#7A8296] mb-2 block">
+            <label className="text-base text-[#7A8296] mb-2 block">
               Display Name
             </label>
             <input
@@ -129,7 +129,7 @@ function Profile() {
           </div>
 
           <div>
-            <label className="text-sm text-[#7A8296] mb-2 block">Bio</label>
+            <label className="text-base text-[#7A8296] mb-2 block">Bio</label>
             <textarea
               value={bio}
               onChange={(e) => setBio(e.target.value)}
@@ -140,10 +140,10 @@ function Profile() {
           </div>
 
           <div>
-            <label className="text-sm text-[#7A8296] mb-2 block">
+            <label className="text-base text-[#7A8296] mb-2 block">
               Starting Balance
             </label>
-            <p className="text-sm text-[#5C6478] mb-3">
+            <p className="text-base text-[#5C6478] mb-3">
               Used to calculate your account balance, drawdown, and gain %
               on the dashboard.
             </p>

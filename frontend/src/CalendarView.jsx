@@ -55,7 +55,7 @@ function CalendarView({ trades }) {
           <span className="font-display text-base font-semibold">{MONTH_NAMES[month]} {year}</span>
         </div>
         <div className="flex items-center gap-3">
-          <span className={`text-xs font-mono px-2 py-0.5 rounded ${monthTotal >= 0 ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
+          <span className={`text-sm font-mono px-2 py-0.5 rounded ${monthTotal >= 0 ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
             {monthTotal >= 0 ? "+" : ""}${Math.round(monthTotal * 100) / 100}
           </span>
           <div className="flex items-center gap-1 text-[#5C6478]">
@@ -65,7 +65,7 @@ function CalendarView({ trades }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-1.5 text-center text-[10px] uppercase tracking-wider text-[#4A5164] mb-2">
+      <div className="grid grid-cols-7 gap-1.5 text-center text-sm uppercase tracking-wider text-[#4A5164] mb-2">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => <div key={d}>{d}</div>)}
       </div>
 
@@ -78,7 +78,7 @@ function CalendarView({ trades }) {
           return (
             <div
               key={day}
-              className={`aspect-square rounded-lg flex flex-col items-center justify-center text-xs border transition-colors ${
+              className={`aspect-square rounded-lg flex flex-col items-center justify-center text-base border transition-colors ${
                 isToday ? "border-[#F0B429]" : "border-transparent"
               } ${
                 pnl > 0 ? "bg-[#0A1B14] text-[#3DD68C]" :
@@ -88,7 +88,7 @@ function CalendarView({ trades }) {
             >
               <span className="font-medium text-lg">{day}</span>
               {pnl !== undefined && (
-                <span className="font-mono text-xs leading-none mt-1">
+                <span className="font-mono text-sm leading-none mt-1">
                   {pnl > 0 ? "+" : ""}{Math.round(pnl)}
                 </span>
               )}
