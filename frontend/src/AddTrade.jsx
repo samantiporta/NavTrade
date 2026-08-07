@@ -41,7 +41,7 @@ function AddTrade({ onTradeAdded }) {
       .catch((err) => setError(err.message));
   };
 
-  const inputClass = "bg-[#0B0E14] border border-[#232A38] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#F0B429] placeholder:text-[#4A5164]";
+  const inputClass = "bg-[#0B0E14] border border-[#232A38] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-[#F0B429] placeholder:text-[#4A5164]";
 
   return (
     <form onSubmit={handleSubmit}>
@@ -58,8 +58,8 @@ function AddTrade({ onTradeAdded }) {
         </select>
         <input placeholder="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} className={`${inputClass} flex-1 min-w-[120px]`} />
       </div>
-      {error && <p className="text-[#FF6B6B] text-sm mb-2">{error}</p>}
-      <button type="submit" className="flex items-center gap-1.5 bg-[#F0B429] hover:bg-[#E0A61E] text-[#05070B] font-medium text-sm px-4 py-2 rounded-lg transition-colors">
+      {error && <p className="text-[#FF6B6B] text-base mb-2">{error}</p>}
+      <button type="submit" className="flex items-center gap-1.5 bg-[#F0B429] hover:bg-[#E0A61E] text-[#05070B] font-medium text-base px-4 py-2.5 rounded-lg transition-colors">
         <Plus size={14} strokeWidth={2.5} />
         Add Trade
       </button>
