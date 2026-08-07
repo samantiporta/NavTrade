@@ -225,7 +225,25 @@ function Dashboard({ trades }) {
                   <Tooltip content={<MiniTooltip />} cursor={{ fill: "#0F131A" }} />
                   <Bar dataKey="pnl" radius={[3, 3, 3, 3]}>
                     {symbolData.map((d, i) => <Cell key={i} fill={d.pnl >= 0 ? "#3DD68C" : "#FF6B6B"} />)}
-                    <LabelList dataKey="pnl" position="right" formatter={(v) => `${v >= 0 ? "+" : ""}${v}`} fill="#8B93A6" fontSize={13} />
+                    <LabelList
+                      dataKey="pnl"
+                      content={({ x, y, width, height, value }) => {
+                        const isPositive = value >= 0;
+                        const labelX = isPositive ? x + width + 6 : x - 6;
+                        return (
+                          <text
+                            x={labelX}
+                            y={y + height / 2}
+                            dy={4}
+                            fontSize={13}
+                            fill="#8B93A6"
+                            textAnchor={isPositive ? "start" : "end"}
+                          >
+                            {isPositive ? "+" : ""}{value}
+                          </text>
+                        );
+                      }}
+                    />
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>

@@ -211,10 +211,10 @@ function App() {
 
       <aside className="hidden md:flex w-60 flex-col border-r border-[#131720] bg-[#070A0F] px-4 py-5 shrink-0">
         <div className="flex items-center gap-2 px-2 mb-8">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#F0B429] to-[#C98A12] flex items-center justify-center">
-            <Compass size={16} className="text-[#05070B]" strokeWidth={2.5} />
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#F0B429] to-[#C98A12] flex items-center justify-center">
+            <Compass size={20} className="text-[#05070B]" strokeWidth={2.5} />
           </div>
-          <span className="font-display font-semibold text-lg tracking-tight">NavTrade</span>
+          <span className="font-display font-semibold text-2xl tracking-tight">NavTrade</span>
         </div>
         <nav className="flex flex-col gap-1">
           <button
