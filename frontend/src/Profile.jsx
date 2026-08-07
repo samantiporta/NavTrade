@@ -106,7 +106,7 @@ function Profile() {
                 stats.total_pnl >= 0 ? "text-[#3DD68C]" : "text-[#FF6B6B]"
               }`}
             >
-              {stats.total_pnl >= 0 ? "+" : ""}
+              {stats.total_pnl >= 0 ? "$" : ""}
               {stats.total_pnl.toFixed(2)}
             </div>
           </div>

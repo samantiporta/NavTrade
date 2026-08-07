@@ -132,7 +132,8 @@ def get_stats(
     total_trades = len(trades)
     wins = len(wins_list)
     losses = len(losses_list)
-    win_rate = (wins / total_trades) * 100 if total_trades > 0 else 0.0
+    closed_trades = wins + losses
+    win_rate = (wins / closed_trades) * 100 if closed_trades > 0 else 0.0
     total_pnl = sum(pnls)
     avg_win = sum(wins_list) / len(wins_list) if wins_list else 0.0
     avg_loss = sum(losses_list) / len(losses_list) if losses_list else 0.0

@@ -202,7 +202,7 @@ function App() {
   );
 
   return (
-    <div className="min-h-screen w-full bg-[#05070B] text-[#DDE1E8] font-sans flex">
+    <div className="h-screen w-full bg-[#05070B] text-[#DDE1E8] font-sans flex overflow-hidden">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
         .font-sans { font-family: 'Inter', sans-serif; }
@@ -264,7 +264,7 @@ function App() {
         </div>
       </aside>
 
-      <main className="flex-1 min-w-0 px-6 md:px-8 py-6">
+      <main className="flex-1 min-w-0 px-6 md:px-8 py-6 overflow-y-auto">
         {loading ? (
           <p className="text-[#5C6478]">Loading trades...</p>
         ) : error ? (

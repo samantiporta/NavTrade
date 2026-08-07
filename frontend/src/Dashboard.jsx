@@ -83,7 +83,7 @@ function StatCard({ icon: Icon, label, value, positive }) {
   return (
     <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-[11px] uppercase tracking-wider text-[#5C6478]">{label}</span>
+        <span className="text-sm uppercase tracking-wider text-[#5C6478]">{label}</span>
         {Icon && <Icon size={14} className="text-[#F0B429]" />}
       </div>
       <div className={`font-mono text-2xl font-semibold ${color}`}>{value}</div>
@@ -142,24 +142,24 @@ function Dashboard({ trades }) {
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-5">
           <div className="flex items-baseline justify-between mb-2">
             <div>
-              <div className="text-xs text-[#5C6478] mb-1">Account Balance</div>
+              <div className="text-base text-[#5C6478] mb-1">Account Balance</div>
               <div className="font-mono text-2xl font-semibold">${currentBalance.toLocaleString()}</div>
             </div>
-            <span className={`text-xs font-mono px-2 py-0.5 rounded ${stats.total_pnl >= 0 ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
+            <span className={`text-sm font-mono px-2 py-0.5 rounded ${stats.total_pnl >= 0 ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
               {stats.total_pnl >= 0 ? "+" : ""}{startingBalance > 0 ? ((stats.total_pnl / startingBalance) * 100).toFixed(2) : "0.00"}%
             </span>
           </div>
           <div className="h-52">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={equityData}>
+              <AreaChart data={equityData} margin={{ left: 8, right: 8, top: 4, bottom: 4 }}>
                 <defs>
                   <linearGradient id="dashEq" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#F0B429" stopOpacity={0.28} />
                     <stop offset="100%" stopColor="#F0B429" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="date" tick={{ fill: "#4A5164", fontSize: 10 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: "#4A5164", fontSize: 10 }} axisLine={false} tickLine={false} width={55} domain={["dataMin - 50", "dataMax + 50"]} />
+                <XAxis dataKey="date" tick={{ fill: "#4A5164", fontSize: 12 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: "#4A5164", fontSize: 12 }} axisLine={false} tickLine={false} width={65} domain={["dataMin - 50", "dataMax + 50"]} />
                 <Tooltip content={<MiniTooltip />} />
                 <Area type="monotone" dataKey="equity" stroke="#F0B429" strokeWidth={2} fill="url(#dashEq)" dot={false} activeDot={{ r: 4, fill: "#F0B429", stroke: "#05070B", strokeWidth: 2 }} />
               </AreaChart>
@@ -170,7 +170,7 @@ function Dashboard({ trades }) {
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
           <div className="flex items-center gap-2 mb-3">
             <Wallet size={14} className="text-[#F0B429]" />
-            <span className="text-sm font-medium text-[#B4BACA]">Risk & Capital</span>
+            <span className="text-base font-medium text-[#B4BACA]">Risk & Capital</span>
           </div>
           <div className="space-y-3">
             {[
@@ -179,7 +179,7 @@ function Dashboard({ trades }) {
               { label: "Highest Balance", value: `$${peak.toLocaleString()}` },
               { label: "Max Drawdown", value: `$${maxDD.toLocaleString()}`, negative: maxDD > 0 },
             ].map((s) => (
-              <div key={s.label} className="flex items-center justify-between text-sm">
+              <div key={s.label} className="flex items-center justify-between text-base">
                 <span className="text-[#7A8296]">{s.label}</span>
                 <span className={`font-mono ${s.negative ? "text-[#FF6B6B]" : "text-[#DDE1E8]"}`}>{s.value}</span>
               </div>
@@ -192,7 +192,7 @@ function Dashboard({ trades }) {
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
           <div className="flex items-center gap-2 mb-3">
             <Activity size={14} className="text-[#F0B429]" />
-            <span className="text-sm font-medium text-[#B4BACA]">Statistics</span>
+            <span className="text-base font-medium text-[#B4BACA]">Statistics</span>
           </div>
           <div className="space-y-2.5">
             {[
@@ -204,7 +204,7 @@ function Dashboard({ trades }) {
               { label: "Open Positions", value: trades.filter((t) => t.exit_price === null || t.exit_price === undefined).length },
               { label: "Total Volume", value: `$${Math.round(trades.reduce((sum, t) => sum + t.entry_price * t.size, 0)).toLocaleString()}` },
             ].map((s) => (
-              <div key={s.label} className="flex items-center justify-between text-sm">
+              <div key={s.label} className="flex items-center justify-between text-base">
                 <span className="text-[#7A8296]">{s.label}</span>
                 <span className="font-mono text-[#DDE1E8]">{s.value}</span>
               </div>
@@ -213,19 +213,19 @@ function Dashboard({ trades }) {
         </div>
 
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
-          <div className="text-sm font-medium text-[#B4BACA] mb-3">P&L by Symbol</div>
+          <div className="text-base font-medium text-[#B4BACA] mb-3">P&L by Symbol</div>
           {symbolData.length === 0 ? (
-            <p className="text-xs text-[#5C6478]">No closed trades yet.</p>
+            <p className="text-sm text-[#5C6478]">No closed trades yet.</p>
           ) : (
             <div style={{ height: Math.max(120, symbolData.length * 34) }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={symbolData} layout="vertical" margin={{ left: 4, right: 44 }}>
                   <XAxis type="number" domain={[-maxAbsSymbol, maxAbsSymbol]} hide />
-                  <YAxis type="category" dataKey="symbol" tick={{ fill: "#8B93A6", fontSize: 11, fontFamily: "monospace" }} axisLine={false} tickLine={false} width={44} />
+                  <YAxis type="category" dataKey="symbol" tick={{ fill: "#8B93A6", fontSize: 13, fontFamily: "monospace" }} axisLine={false} tickLine={false} width={60} />
                   <Tooltip content={<MiniTooltip />} cursor={{ fill: "#0F131A" }} />
                   <Bar dataKey="pnl" radius={[3, 3, 3, 3]}>
                     {symbolData.map((d, i) => <Cell key={i} fill={d.pnl >= 0 ? "#3DD68C" : "#FF6B6B"} />)}
-                    <LabelList dataKey="pnl" position="right" formatter={(v) => `${v >= 0 ? "+" : ""}${v}`} fill="#8B93A6" fontSize={10} />
+                    <LabelList dataKey="pnl" position="right" formatter={(v) => `${v >= 0 ? "+" : ""}${v}`} fill="#8B93A6" fontSize={13} />
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
@@ -236,15 +236,15 @@ function Dashboard({ trades }) {
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
           <div className="flex items-center gap-2 mb-3">
             <Flame size={14} className="text-[#F0B429]" />
-            <span className="text-sm font-medium text-[#B4BACA]">Streak</span>
+            <span className="text-base font-medium text-[#B4BACA]">Streak</span>
           </div>
           <div className="flex items-baseline gap-2 mb-3">
             <span className="font-mono text-2xl font-semibold">{streak.current}</span>
-            <span className={`text-sm ${streak.type === 1 ? "text-[#3DD68C]" : streak.type === -1 ? "text-[#FF6B6B]" : "text-[#7A8296]"}`}>
+            <span className={`text-base ${streak.type === 1 ? "text-[#3DD68C]" : streak.type === -1 ? "text-[#FF6B6B]" : "text-[#7A8296]"}`}>
               {streak.type === 1 ? "wins in a row" : streak.type === -1 ? "losses in a row" : "trades logged"}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-2 text-sm">
             <span className="px-2 py-0.5 rounded-md bg-[#0A1B14] text-[#3DD68C]">Best streak {streak.bestWin}</span>
             <span className="px-2 py-0.5 rounded-md bg-[#211013] text-[#FF6B6B]">Worst streak {streak.bestLoss}</span>
           </div>
@@ -253,14 +253,14 @@ function Dashboard({ trades }) {
 
       <div className="rounded-xl border border-[#131720] bg-[#080B10] overflow-hidden">
         <div className="px-4 pt-3.5 pb-3">
-          <span className="text-sm font-medium text-[#DDE1E8]">Recent Trades</span>
+          <span className="text-base font-medium text-[#DDE1E8]">Recent Trades</span>
         </div>
         {recentTrades.length === 0 ? (
-          <p className="text-xs text-[#5C6478] px-4 pb-4">No trades yet.</p>
+          <p className="text-sm text-[#5C6478] px-4 pb-4">No trades yet.</p>
         ) : (
-          <table className="w-full text-sm">
+          <table className="w-full text-base">
             <thead>
-              <tr className="text-left text-[10px] uppercase tracking-wider text-[#4A5164] border-y border-[#131720]">
+              <tr className="text-left text-sm uppercase tracking-wider text-[#4A5164] border-y border-[#131720]">
                 <th className="px-4 py-2 font-medium">Symbol</th>
                 <th className="px-4 py-2 font-medium">Side</th>
                 <th className="px-4 py-2 font-medium">Entry</th>
@@ -276,16 +276,16 @@ function Dashboard({ trades }) {
                   <tr key={t.id} className="border-b border-[#0E1218] last:border-0 hover:bg-[#0C0F16] transition-colors">
                     <td className="px-4 py-2.5 font-mono font-medium">{t.ticker}</td>
                     <td className="px-4 py-2.5">
-                      <span className={`inline-flex items-center gap-1 text-[11px] px-1.5 py-0.5 rounded ${t.direction === "Long" ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
+                      <span className={`inline-flex items-center gap-1 text-xs px-1.5 py-0.5 rounded ${t.direction === "Long" ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
                         {t.direction === "Long" ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
                         {t.direction}
                       </span>
                     </td>
                     <td className="px-4 py-2.5 font-mono text-[#8B93A6]">${t.entry_price}</td>
-                    <td className="px-4 py-2.5 font-mono text-[#8B93A6]">{t.exit_price ? `$${t.exit_price}` : "Open"}</td>
+                    <td className="px-4 py-2.5 font-mono text-[#8B93A6]">{(t.exit_price === null || t.exit_price === undefined) ? "Open" : `$${t.exit_price}`}</td>
                     <td className="px-4 py-2.5 text-[#7A8296]">{t.date}</td>
                     <td className={`px-4 py-2.5 text-right font-mono font-medium ${pnl > 0 ? "text-[#3DD68C]" : pnl < 0 ? "text-[#FF6B6B]" : "text-[#5C6478]"}`}>
-                      {pnl !== 0 ? `${pnl >= 0 ? "+" : ""}${Math.round(pnl * 100) / 100}` : "—"}
+                      {(t.exit_price === null || t.exit_price === undefined) ? "Open" : `${pnl >= 0 ? "+" : ""}${Math.round(pnl * 100) / 100}`}
                     </td>
                   </tr>
                 );
