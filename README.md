@@ -1,6 +1,6 @@
 # NavTrade
 
-A full-stack trading journal for logging trades and tracking real performance — win rate, profit factor, drawdown, and streaks, calculated from your actual trade history.
+A full-stack trading journal for logging trades and tracking real performance which includes the win rate, profit factor, drawdown, and streaks, calculated from your actual trade history.
 
 **Live app:** [nav-trade.vercel.app](https://nav-trade.vercel.app)
 **API:** [navtrade-production.up.railway.app](https://navtrade-production.up.railway.app)
@@ -61,7 +61,7 @@ npm run dev
 
 ---
 
-## Known Limitations / Next Steps
+## Known Limitations / Features to be added
 
 - No password reset flow (needs email infrastructure)
 - No refresh tokens — JWT expires after 24h
