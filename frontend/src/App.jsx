@@ -273,7 +273,7 @@ function App() {
           <Dashboard trades={trades} />
         ) : activeView === "calendar" ? (
           <>
-            <h2 className="font-display text-2xl font-semibold mb-4">Calendar</h2>
+            <h2 className="font-display text-lg font-semibold mb-4">Calendar</h2>
             <CalendarView trades={trades} />
           </>
         ) : activeView === "profile" ? (
