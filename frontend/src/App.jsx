@@ -115,7 +115,7 @@ function App() {
       <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4 mb-4">
         <AddTrade onTradeAdded={fetchTrades} />
       </div>
-      <h2 className="font-display text-base font-semibold mb-3">Your Trades</h2>
+      <h2 className="font-display text-lg font-semibold mb-3">Your Trades</h2>
       {trades.length === 0 ? (
         <p className="text-[#5C6478]">No trades yet.</p>
       ) : (
@@ -273,7 +273,7 @@ function App() {
           <Dashboard trades={trades} />
         ) : activeView === "calendar" ? (
           <>
-            <h2 className="font-display text-base font-semibold mb-4">Calendar</h2>
+            <h2 className="font-display text-lg font-semibold mb-4">Calendar</h2>
             <CalendarView trades={trades} />
           </>
         ) : activeView === "profile" ? (
