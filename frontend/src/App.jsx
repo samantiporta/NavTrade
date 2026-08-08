@@ -250,13 +250,13 @@ function App() {
         <div className="mt-auto flex flex-col gap-3 pt-4">
           <button
             onClick={() => setActiveView("trades")}
-            className="flex items-center gap-2 justify-center bg-[#F0B429] hover:bg-[#E0A61E] text-[#05070B] font-medium text-sm px-3 py-2 rounded-lg transition-colors"
+            className="flex items-center gap-2 justify-center bg-[#F0B429] hover:bg-[#E0A61E] text-[#05070B] font-medium text-xs px-3 py-2 rounded-lg transition-colors"
           >
             <Plus size={15} strokeWidth={2.5} />
             Add Trade
           </button>
           <div className="pt-3 mt-1 border-t border-[#131720]">
-            <button onClick={handleLogout} className="flex items-center gap-2 justify-center w-full text-sm text-[#7A8296] hover:text-[#DDE1E8] px-3 py-2 rounded-lg transition-colors">
+            <button onClick={handleLogout} className="flex items-center gap-2 justify-center w-full text-xs text-[#7A8296] hover:text-[#DDE1E8] px-3 py-2 rounded-lg transition-colors">
               <LogOut size={14} />
               Log Out
             </button>
