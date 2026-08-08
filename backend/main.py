@@ -164,5 +164,5 @@ def update_profile(
     if profile.bio is not None:
         current_user.bio = profile.bio
     db.commit()
-    db.refresh(current_user)
-    return current_user
+    updated_user = db.query(models.User).filter(models.User.id == current_user.id).first()
+    return updated_user
