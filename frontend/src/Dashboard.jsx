@@ -83,7 +83,7 @@ function StatCard({ icon: Icon, label, value, positive }) {
   return (
     <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm uppercase tracking-wider text-[#5C6478]">{label}</span>
+        <span className="text-xs uppercase tracking-wider text-[#5C6478]">{label}</span>
         {Icon && <Icon size={14} className="text-[#F0B429]" />}
       </div>
       <div className={`font-mono text-xl font-semibold ${color}`}>{value}</div>
@@ -128,7 +128,7 @@ function Dashboard({ trades }) {
 
   return (
     <div className="w-full">
-      <h2 className="font-display text-xl font-semibold mb-6">Dashboard</h2>
+      <h2 className="font-display text-lg font-semibold mb-6">Dashboard</h2>
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
         <StatCard icon={TrendingUp} label="Total P&L" value={`$${stats.total_pnl}`} positive={stats.total_pnl >= 0} />
@@ -142,10 +142,10 @@ function Dashboard({ trades }) {
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-5">
           <div className="flex items-baseline justify-between mb-2">
             <div>
-              <div className="text-sm text-[#5C6478] mb-1">Account Balance</div>
+              <div className="text-xs text-[#5C6478] mb-1">Account Balance</div>
               <div className="font-mono text-xl font-semibold">${currentBalance.toLocaleString()}</div>
             </div>
-            <span className={`text-sm font-mono px-2 py-0.5 rounded ${stats.total_pnl >= 0 ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
+            <span className={`text-xs font-mono px-2 py-0.5 rounded ${stats.total_pnl >= 0 ? "bg-[#0A1B14] text-[#3DD68C]" : "bg-[#211013] text-[#FF6B6B]"}`}>
               {stats.total_pnl >= 0 ? "+" : ""}{startingBalance > 0 ? ((stats.total_pnl / startingBalance) * 100).toFixed(2) : "0.00"}%
             </span>
           </div>
@@ -170,7 +170,7 @@ function Dashboard({ trades }) {
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
           <div className="flex items-center gap-2 mb-3">
             <Wallet size={14} className="text-[#F0B429]" />
-            <span className="text-sm font-medium text-[#B4BACA]">Risk & Capital</span>
+            <span className="text-xs font-medium text-[#B4BACA]">Risk & Capital</span>
           </div>
           <div className="space-y-3">
             {[
@@ -179,7 +179,7 @@ function Dashboard({ trades }) {
               { label: "Highest Balance", value: `$${peak.toLocaleString()}` },
               { label: "Max Drawdown", value: `$${maxDD.toLocaleString()}`, negative: maxDD > 0 },
             ].map((s) => (
-              <div key={s.label} className="flex items-center justify-between text-sm">
+              <div key={s.label} className="flex items-center justify-between text-xs">
                 <span className="text-[#7A8296]">{s.label}</span>
                 <span className={`font-mono ${s.negative ? "text-[#FF6B6B]" : "text-[#DDE1E8]"}`}>{s.value}</span>
               </div>
@@ -192,7 +192,7 @@ function Dashboard({ trades }) {
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
           <div className="flex items-center gap-2 mb-3">
             <Activity size={14} className="text-[#F0B429]" />
-            <span className="text-sm font-medium text-[#B4BACA]">Statistics</span>
+            <span className="text-xs font-medium text-[#B4BACA]">Statistics</span>
           </div>
           <div className="space-y-2.5">
             {[
@@ -204,7 +204,7 @@ function Dashboard({ trades }) {
               { label: "Open Positions", value: trades.filter((t) => t.exit_price === null || t.exit_price === undefined).length },
               { label: "Total Volume", value: `$${Math.round(trades.reduce((sum, t) => sum + t.entry_price * t.size, 0)).toLocaleString()}` },
             ].map((s) => (
-              <div key={s.label} className="flex items-center justify-between text-sm">
+              <div key={s.label} className="flex items-center justify-between text-xs">
                 <span className="text-[#7A8296]">{s.label}</span>
                 <span className="font-mono text-[#DDE1E8]">{s.value}</span>
               </div>
@@ -213,9 +213,9 @@ function Dashboard({ trades }) {
         </div>
 
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
-          <div className="text-sm font-medium text-[#B4BACA] mb-3">P&L by Symbol</div>
+          <div className="text-xs font-medium text-[#B4BACA] mb-3">P&L by Symbol</div>
           {symbolData.length === 0 ? (
-            <p className="text-sm text-[#5C6478]">No closed trades yet.</p>
+            <p className="text-xs text-[#5C6478]">No closed trades yet.</p>
           ) : (
             <div style={{ height: Math.max(120, symbolData.length * 34) }}>
               <ResponsiveContainer width="100%" height="100%">
@@ -254,15 +254,15 @@ function Dashboard({ trades }) {
         <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4">
           <div className="flex items-center gap-2 mb-3">
             <Flame size={14} className="text-[#F0B429]" />
-            <span className="text-sm font-medium text-[#B4BACA]">Streak</span>
+            <span className="text-xs font-medium text-[#B4BACA]">Streak</span>
           </div>
           <div className="flex items-baseline gap-2 mb-3">
             <span className="font-mono text-xl font-semibold">{streak.current}</span>
-            <span className={`text-sm ${streak.type === 1 ? "text-[#3DD68C]" : streak.type === -1 ? "text-[#FF6B6B]" : "text-[#7A8296]"}`}>
+            <span className={`text-xs ${streak.type === 1 ? "text-[#3DD68C]" : streak.type === -1 ? "text-[#FF6B6B]" : "text-[#7A8296]"}`}>
               {streak.type === 1 ? "wins in a row" : streak.type === -1 ? "losses in a row" : "trades logged"}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-2 text-xs">
             <span className="px-2 py-0.5 rounded-md bg-[#0A1B14] text-[#3DD68C]">Best streak {streak.bestWin}</span>
             <span className="px-2 py-0.5 rounded-md bg-[#211013] text-[#FF6B6B]">Worst streak {streak.bestLoss}</span>
           </div>
@@ -271,14 +271,14 @@ function Dashboard({ trades }) {
 
       <div className="rounded-xl border border-[#131720] bg-[#080B10] overflow-hidden">
         <div className="px-4 pt-3.5 pb-3">
-          <span className="text-sm font-medium text-[#DDE1E8]">Recent Trades</span>
+          <span className="text-xs font-medium text-[#DDE1E8]">Recent Trades</span>
         </div>
         {recentTrades.length === 0 ? (
-          <p className="text-sm text-[#5C6478] px-4 pb-4">No trades yet.</p>
+          <p className="text-xs text-[#5C6478] px-4 pb-4">No trades yet.</p>
         ) : (
-          <table className="w-full text-sm">
+          <table className="w-full text-xs">
             <thead>
-              <tr className="text-left text-sm uppercase tracking-wider text-[#4A5164] border-y border-[#131720]">
+              <tr className="text-left text-xs uppercase tracking-wider text-[#4A5164] border-y border-[#131720]">
                 <th className="px-4 py-2 font-medium">Symbol</th>
                 <th className="px-4 py-2 font-medium">Side</th>
                 <th className="px-4 py-2 font-medium">Entry</th>

@@ -115,12 +115,12 @@ function App() {
       <div className="rounded-xl border border-[#131720] bg-[#080B10] p-4 mb-4">
         <AddTrade onTradeAdded={fetchTrades} />
       </div>
-      <h2 className="font-display text-lg font-semibold mb-3">Your Trades</h2>
+      <h2 className="font-display text-base font-semibold mb-3">Your Trades</h2>
       {trades.length === 0 ? (
         <p className="text-[#5C6478]">No trades yet.</p>
       ) : (
         <div className="rounded-xl border border-[#131720] bg-[#080B10] overflow-hidden">
-          <table className="w-full text-sm">
+          <table className="w-full text-xs">
             <thead>
               <tr className="text-left text-sm uppercase tracking-wider text-[#4A5164] border-b border-[#131720]">
                 <th className="px-4 py-2.5 font-medium">Ticker</th>
@@ -219,28 +219,28 @@ function App() {
         <nav className="flex flex-col gap-1">
           <button
             onClick={() => setActiveView("overview")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "overview" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs text-left transition-colors ${activeView === "overview" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
           >
             <PieChart size={16} />
             Overview
           </button>
           <button
             onClick={() => setActiveView("trades")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "trades" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs text-left transition-colors ${activeView === "trades" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
           >
             <Table2 size={16} />
             Trades
           </button>
           <button
             onClick={() => setActiveView("calendar")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "calendar" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs text-left transition-colors ${activeView === "calendar" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
           >
             <CalendarDays size={16} />
             Calendar
           </button>
           <button
             onClick={() => setActiveView("profile")}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-left transition-colors ${activeView === "profile" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs text-left transition-colors ${activeView === "profile" ? "bg-[#12161F] text-[#F0B429] font-medium" : "text-[#7A8296] hover:text-[#B4BACA] hover:bg-[#0C0F16]"}`}
           >
             <User size={16} />
             Profile
@@ -273,7 +273,7 @@ function App() {
           <Dashboard trades={trades} />
         ) : activeView === "calendar" ? (
           <>
-            <h2 className="font-display text-lg font-semibold mb-4">Calendar</h2>
+            <h2 className="font-display text-base font-semibold mb-4">Calendar</h2>
             <CalendarView trades={trades} />
           </>
         ) : activeView === "profile" ? (
